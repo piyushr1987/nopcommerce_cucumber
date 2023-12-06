@@ -12,12 +12,14 @@ import io.cucumber.java.en.*;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import pageObject.AddNewCustomerPage;
 import pageObject.LoginPage;
+import pageObject.SearchCustomerPage;
 
 public class StepDef {
 
 	public WebDriver driver;
 	public LoginPage login;
 	public AddNewCustomerPage customer;
+	public SearchCustomerPage search;
 
 	@Given("User Launch Chrome browser")
 	public void user_launch_chrome_browser() {
@@ -28,6 +30,8 @@ public class StepDef {
 		login = new LoginPage(driver);
 
 		customer = new AddNewCustomerPage(driver);
+
+		search = new SearchCustomerPage(driver);
 
 	}
 
@@ -125,7 +129,7 @@ public class StepDef {
 	@When("user enter customer info")
 	public void user_enter_customer_info() {
 
-		customer.enterEmail("test1232@gmail.com");
+		customer.enterEmail("test912@gmail.com");
 		customer.enterPassword("Demo123@");
 		customer.enterFirstName("priyanka");
 		customer.enterLastName("sonone");
@@ -156,10 +160,51 @@ public class StepDef {
 
 	}
 
-	@Then("close the browser")
-	public void close_the_browser() {
+	// *************search customer by email*****************//
 
+	@When("enter customer email address")
+	public void enter_customer_email_address() {
+		search.enterEmail("victoria_victoria@nopCommerce.com");
+	}
+
+	@When("click on search button")
+	public void click_on_search_button() {
+		search.clickOnSearch();
+
+	}
+
+	@Then("user should found email in search table")
+	public void user_should_found_email_in_search_table() {
+
+		String expEmailAdd = "victoria_victoria@nopCommerce.com";
+		Assert.assertTrue(search.searchCustomerByEmail(expEmailAdd));
+
+	}
+
+	@Then("close the browser.")
+	public void close_the_browser() {
 		driver.quit();
+	}
+
+	///////////////////// search customer by name/////////////////
+
+	@When("Enter customer FirstName")
+	public void enter_customer_first_name() {
+		search.enterFirstName("Victoria");
+
+	}
+
+	@When("Enter customer LastName")
+	public void enter_customer_last_name() {
+		search.enterLastName("Terces");
+
+	}
+
+	@Then("User should found Name in the Search table")
+	public void user_should_found_name_in_the_search_table() {
+
+		String expName = "Victoria Terces";
+		Assert.assertTrue(search.searchCustomerByName(expName));
 
 	}
 
