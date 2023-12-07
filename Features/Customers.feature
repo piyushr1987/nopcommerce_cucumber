@@ -8,7 +8,8 @@ Given User Launch Chrome browser
 	Then User can view dashboard
 	When user click on customer menu
 	And  click on customer menu item
-	
+
+@Sanity	
 Scenario: Add customer
   
 	And  click on add new button
@@ -18,6 +19,7 @@ Scenario: Add customer
 	Then user can view confirmation message "The new customer has been added successfully."
 	And close the browser
 	
+	@regression
 	Scenario: search customer by email
 	
 	And enter customer email address
@@ -25,6 +27,7 @@ Scenario: Add customer
 	Then user should found email in search table
 	And close the browser.
 	
+	@regression
 	Scenario: search customer by name
 	 
 	And Enter customer FirstName

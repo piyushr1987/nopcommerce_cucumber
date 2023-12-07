@@ -1,10 +1,7 @@
 package stepDefinition;
 
 import java.time.Duration;
-import java.util.concurrent.TimeUnit;
-
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 
@@ -14,12 +11,7 @@ import pageObject.AddNewCustomerPage;
 import pageObject.LoginPage;
 import pageObject.SearchCustomerPage;
 
-public class StepDef {
-
-	public WebDriver driver;
-	public LoginPage login;
-	public AddNewCustomerPage customer;
-	public SearchCustomerPage search;
+public class StepDef extends BaseClass {
 
 	@Given("User Launch Chrome browser")
 	public void user_launch_chrome_browser() {
@@ -73,7 +65,7 @@ public class StepDef {
 
 	@Then("close browser")
 	public void close_browser() {
-		driver.close();
+		driver.quit();
 
 	}
 
@@ -129,7 +121,7 @@ public class StepDef {
 	@When("user enter customer info")
 	public void user_enter_customer_info() {
 
-		customer.enterEmail("test912@gmail.com");
+		customer.enterEmail(generateEmailId() + "@gmail.com");
 		customer.enterPassword("Demo123@");
 		customer.enterFirstName("priyanka");
 		customer.enterLastName("sonone");

@@ -8,10 +8,11 @@ import io.cucumber.junit.Cucumber;
 @RunWith(Cucumber.class)
 @CucumberOptions(
 
-		features = ".//Features/Customers.feature", 
+		features = ".//Features/", 
 		glue = "stepDefinition", 
 		dryRun = false, 
 		monochrome = true, 
+		tags="@Sanity",
 		plugin = {"pretty", "html:target/cucumber-reports/reports_html.html" })
 
 //plugin = { "pretty","json:target/cucumber-reports/reports_json.json" })
