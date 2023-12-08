@@ -1,5 +1,6 @@
 package pageObject;
 
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -42,7 +43,9 @@ public class LoginPage {
 	}
 
 	public void clickOnLogOutButton() {
-		logout.click();
+		JavascriptExecutor executor = (JavascriptExecutor) ldriver;
+		executor.executeScript("arguments[0].click();", logout);
+		// logout.click();
 	}
 
 }

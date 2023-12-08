@@ -9,7 +9,7 @@ Given User Launch Chrome browser
 	When user click on customer menu
 	And  click on customer menu item
 
-@Sanity	
+@regression
 Scenario: Add customer
   
 	And  click on add new button

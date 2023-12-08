@@ -1,10 +1,21 @@
 package stepDefinition;
 
+import java.io.File;
+import java.io.IOException;
 import java.time.Duration;
+
+import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.By;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 
+import io.cucumber.java.After;
+import io.cucumber.java.AfterStep;
+import io.cucumber.java.Before;
+import io.cucumber.java.BeforeStep;
+import io.cucumber.java.Scenario;
 import io.cucumber.java.en.*;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import pageObject.AddNewCustomerPage;
@@ -13,11 +24,15 @@ import pageObject.SearchCustomerPage;
 
 public class StepDef extends BaseClass {
 
-	@Given("User Launch Chrome browser")
-	public void user_launch_chrome_browser() {
-
+	@Before()
+	public void setUp() {
+		System.out.println("Set up method is executed");
 		WebDriverManager.chromedriver().setup();
 		driver = new ChromeDriver();
+	}
+
+	@Given("User Launch Chrome browser")
+	public void user_launch_chrome_browser() {
 
 		login = new LoginPage(driver);
 
@@ -65,7 +80,8 @@ public class StepDef extends BaseClass {
 
 	@Then("close browser")
 	public void close_browser() {
-		driver.quit();
+		driver.close();
+		// driver.quit();
 
 	}
 
@@ -198,6 +214,42 @@ public class StepDef extends BaseClass {
 		String expName = "Victoria Terces";
 		Assert.assertTrue(search.searchCustomerByName(expName));
 
+	}
+
+	@After()
+	public void tearDown(Scenario sc) {
+		System.out.println("Tear down method is executed");
+		if (sc.isFailed() == true) {
+			String fileWithPath = "C:\\Users\\piyush ramteke\\eclipse-workspace\\E workplace\\CucumberFramework\\Screenshots\\failedScreenshot.png";
+			TakesScreenshot scrShot = ((TakesScreenshot) driver);
+
+			// Call getScreenshotAs method to create image file
+			File SrcFile = scrShot.getScreenshotAs(OutputType.FILE);
+
+			// Move image file to new destination
+			File DestFile = new File(fileWithPath);
+
+			// Copy file at destination
+
+			try {
+				FileUtils.copyFile(SrcFile, DestFile);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+		}
+		driver.quit();
+	}
+
+	@BeforeStep
+	public void beforeTestDemo() {
+		System.out.println("This is before test........");
+	}
+
+	@AfterStep
+	public void afterTestDemo() {
+		System.out.println("This is after test........");
 	}
 
 }
