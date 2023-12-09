@@ -1,0 +1,9 @@
+[INFO ] 2023-12-09 16:47:13.947 [main] StepDef - setUp method is executed
+[INFO ] 2023-12-09 16:47:13.999 [main] StepDef - user launched chrome browser
+[INFO ] 2023-12-09 16:47:36.538 [main] StepDef - url is opened
+[INFO ] 2023-12-09 16:47:36.836 [main] StepDef - email and password is entered
+[INFO ] 2023-12-09 16:47:58.000 [main] StepDef - login button clicked
+[WARN ] 2023-12-09 16:48:00.410 [main] StepDef - Test Passed:page title is matched....
+[INFO ] 2023-12-09 16:48:04.532 [main] StepDef - logout button is clicked
+[WARN ] 2023-12-09 16:48:04.590 [main] StepDef - Test Passed:page title is matched....
+[INFO ] 2023-12-09 16:48:04.802 [main] StepDef - browser is closed
