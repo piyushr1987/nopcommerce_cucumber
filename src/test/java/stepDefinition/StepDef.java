@@ -1,8 +1,10 @@
 package stepDefinition;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.time.Duration;
+import java.util.Properties;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.logging.log4j.LogManager;
@@ -10,6 +12,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.Assert;
 
 import io.cucumber.java.After;
@@ -22,17 +26,41 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 import pageObject.AddNewCustomerPage;
 import pageObject.LoginPage;
 import pageObject.SearchCustomerPage;
+import utilities.ReadConfig;
 
 public class StepDef extends BaseClass {
 
 	@Before()
-	public void setUp() {
+	public void setUp() throws IOException {
 
+		readConfig = new ReadConfig();
+
+		// intiailise logger
 		log = LogManager.getLogger("StepDef");
 		System.out.println("Set up method is executed");
-		WebDriverManager.chromedriver().setup();
-		driver = new ChromeDriver();
-		log.info("setUp method is executed");
+
+		String browser = readConfig.getBrowser();
+		// launch browser
+		switch (browser.toLowerCase()) {
+		case "chrome":
+			WebDriverManager.chromedriver().setup();
+			driver = new ChromeDriver();
+			break;
+
+		case "msedge":
+			WebDriverManager.edgedriver().setup();
+			driver = new EdgeDriver();
+			break;
+
+		case "firefox":
+			WebDriverManager.firefoxdriver().setup();
+			driver = new FirefoxDriver();
+			break;
+		default:
+			driver = null;
+			break;
+
+		}
 	}
 
 	@Given("User Launch Chrome browser")
